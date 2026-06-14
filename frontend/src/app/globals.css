@@ -70,6 +70,175 @@ body {
   .hairline {
     border-color: rgba(255, 255, 255, 0.08);
   }
+
+  /* ===================================================================
+     CONSOLE PLATES - primary motif. Solid deep-indigo instrument plates
+     framed with thin teal hairlines. NOT frosted glass. These replace the
+     old aurora frosted-card look for all primary page panels.
+     =================================================================== */
+  .plate {
+    position: relative;
+    background:
+      linear-gradient(158deg, rgba(18, 26, 53, 0.94) 0%, rgba(8, 12, 27, 0.96) 100%);
+    border: 1px solid rgba(94, 234, 212, 0.16);
+    box-shadow:
+      0 24px 70px -34px rgba(2, 6, 23, 0.95),
+      inset 0 1px 0 0 rgba(154, 243, 227, 0.07),
+      inset 0 0 0 1px rgba(7, 11, 24, 0.4);
+  }
+  .plate-violet {
+    border-color: rgba(167, 139, 250, 0.22);
+    box-shadow:
+      0 24px 70px -34px rgba(2, 6, 23, 0.95),
+      inset 0 1px 0 0 rgba(196, 181, 253, 0.08);
+  }
+  .plate-deep {
+    background:
+      linear-gradient(158deg, rgba(11, 17, 36, 0.96) 0%, rgba(7, 11, 24, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 60px -30px rgba(2, 6, 23, 0.9);
+  }
+  /* corner registration brackets, drawn with layered gradients */
+  .bracket::before,
+  .bracket::after {
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .bracket::before {
+    top: 7px;
+    left: 7px;
+    border-top: 1.5px solid rgba(94, 234, 212, 0.55);
+    border-left: 1.5px solid rgba(94, 234, 212, 0.55);
+  }
+  .bracket::after {
+    bottom: 7px;
+    right: 7px;
+    border-bottom: 1.5px solid rgba(94, 234, 212, 0.55);
+    border-right: 1.5px solid rgba(94, 234, 212, 0.55);
+  }
+  .bracket-violet::before {
+    border-top-color: rgba(167, 139, 250, 0.6);
+    border-left-color: rgba(167, 139, 250, 0.6);
+  }
+  .bracket-violet::after {
+    border-bottom-color: rgba(167, 139, 250, 0.6);
+    border-right-color: rgba(167, 139, 250, 0.6);
+  }
+  /* angular masthead clip */
+  .clip-masthead {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 34px), calc(100% - 34px) 100%, 0 100%);
+  }
+  .clip-tag {
+    clip-path: polygon(22px 0, 100% 0, 100% 100%, 0 100%, 0 22px);
+  }
+  /* scanline sheen across a plate header */
+  .scanline {
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(94, 234, 212, 0.05) 0px,
+        rgba(94, 234, 212, 0.05) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+  }
+  /* rail spine + node ticks */
+  .railspine {
+    background: linear-gradient(180deg, rgba(94, 234, 212, 0.5) 0%, rgba(167, 139, 250, 0.3) 60%, transparent 100%);
+  }
+  /* filament junction glow dot */
+  .junction {
+    filter: drop-shadow(0 0 4px rgba(94, 234, 212, 0.9));
+  }
+
+  /* OS window chrome: a glass panel with a faint inset title rail */
+  .oswin {
+    position: relative;
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.025) 48%,
+      rgba(255, 255, 255, 0.012) 100%
+    );
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 18px 60px -22px rgba(2, 6, 23, 0.85),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
+  }
+  .oswin-strong {
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.11) 0%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow:
+      0 26px 80px -26px rgba(2, 6, 23, 0.9),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  }
+  /* dock rail vertical sheen */
+  .dockrail {
+    background: linear-gradient(180deg, rgba(13, 19, 41, 0.82) 0%, rgba(8, 12, 27, 0.86) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+  }
+  /* animated dashed connector */
+  .connector-flow {
+    stroke-dasharray: 5 9;
+    animation: connectordash 2.4s linear infinite;
+  }
+  .grid-faint {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+}
+
+@keyframes connectordash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes nodepulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+.animate-nodepulse {
+  animation: nodepulse 2.4s ease-in-out infinite;
+}
+
+@keyframes sweepdown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(400%);
+    opacity: 0;
+  }
+}
+.animate-sweepdown {
+  animation: sweepdown 5.5s linear infinite;
 }
 
 /* scrollbar */

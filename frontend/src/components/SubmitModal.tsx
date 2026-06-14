@@ -6,7 +6,7 @@ import { X, ShieldCheck, ScanSearch, TriangleAlert, ExternalLink, Wallet } from 
 import type { useTransaction } from '@/hooks/useTransaction';
 import type { Policy } from '@/lib/contract';
 import { ConsensusStage } from './ConsensusStage';
-import { PolicyCard } from './PolicyCard';
+import { PolicyPanel } from './PolicyPanel';
 import { EXPLORER, FAUCET } from '@/lib/contract';
 
 const MAX_TITLE = 120;
@@ -300,7 +300,7 @@ export function SubmitModal({
                 </p>
                 {state.result && (
                   <div className="mt-6">
-                    <PolicyCard policy={state.result} fresh />
+                    <PolicyPanel policy={state.result} fresh />
                   </div>
                 )}
                 <button
