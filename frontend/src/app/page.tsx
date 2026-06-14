@@ -146,8 +146,9 @@ function Dashboard() {
         {/* compact single-row footer strip, not a 3-column grid */}
         <footer className="border-t border-white/8 px-5 py-6 sm:px-8">
           <p className="mx-auto max-w-6xl text-center font-mono text-[11px] text-faint">
-            Built on GenLayer Bradbury Testnet. Rulings are AI judgments under validator consensus,
-            provided as is, not professional moderation or legal advice.
+            Sentinel runs on the GenLayer Bradbury testnet, where each ruling is an AI judgment
+            confirmed by validator consensus. The desk holds no deposits and takes no custody, and
+            its calls are not professional moderation or legal advice.
           </p>
         </footer>
       </main>

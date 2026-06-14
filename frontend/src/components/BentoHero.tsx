@@ -128,7 +128,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-teal">
               <span className="h-2 w-2 animate-pulsechip rounded-full bg-teal shadow-glow" />
-              Live on Bradbury Testnet
+              Desk live on Bradbury
             </span>
             <span className="font-mono text-[10px] uppercase tracking-wider text-faint">
               Chain 4221
@@ -143,7 +143,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               className="flex min-w-0 items-center gap-2 font-mono text-[11px] text-haze hover:text-teal"
             >
               <FileCode2 size={13} className="shrink-0 text-faint" />
-              <span className="truncate">Contract {shortAddr(CONTRACT_ADDRESS)}</span>
+              <span className="truncate">Gate contract {shortAddr(CONTRACT_ADDRESS)}</span>
             </a>
             <CopyButton value={CONTRACT_ADDRESS} label="Copy contract address" />
           </div>
@@ -155,7 +155,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-teal"
             >
-              Deploy {shortHash(DEPLOY_TX)} <ExternalLink size={11} />
+              Deck deploy {shortHash(DEPLOY_TX)} <ExternalLink size={11} />
             </a>
             <a
               href={FAUCET}
@@ -163,7 +163,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-teal hover:text-teal-soft"
             >
-              <Droplets size={12} /> Claim test GEN
+              <Droplets size={12} /> Top up test GEN
             </a>
             <a
               href={EXPLORER}
@@ -171,7 +171,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-teal"
             >
-              Explorer <ExternalLink size={11} />
+              Inspect on explorer <ExternalLink size={11} />
             </a>
             <a
               href="https://docs.genlayer.com"
@@ -179,7 +179,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-teal"
             >
-              Docs <ExternalLink size={11} />
+              Desk docs <ExternalLink size={11} />
             </a>
           </div>
         </motion.div>

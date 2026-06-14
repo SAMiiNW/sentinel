@@ -86,9 +86,9 @@ export function Hero({ onOpen, stats }: Props) {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 font-mono text-xs text-faint"
           >
-            Live on Bradbury Testnet.{' '}
+            Desk live on Bradbury.{' '}
             <a href={FAUCET} target="_blank" rel="noopener noreferrer" className="text-teal hover:underline">
-              Claim test GEN
+              Top up test GEN
             </a>{' '}
             to publish or check.
           </motion.div>

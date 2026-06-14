@@ -330,7 +330,7 @@ export function SubmitModal({
                     rel="noopener noreferrer"
                     className="mt-3 font-mono text-xs text-teal hover:underline"
                   >
-                    Claim test GEN
+                    Top up test GEN
                   </a>
                 )}
                 <div className="mt-6 flex gap-3">
