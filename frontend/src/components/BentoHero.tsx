@@ -128,7 +128,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-teal">
               <span className="h-2 w-2 animate-pulsechip rounded-full bg-teal shadow-glow" />
-              Desk live on Bradbury
+              Desk online, Bradbury
             </span>
             <span className="font-mono text-[10px] uppercase tracking-wider text-faint">
               Chain 4221
@@ -163,7 +163,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-teal hover:text-teal-soft"
             >
-              <Droplets size={12} /> Top up test GEN
+              <Droplets size={12} /> Top up gas
             </a>
             <a
               href={EXPLORER}
@@ -171,7 +171,7 @@ export function BentoHero({ onOpen, onCheck, checksDisabled, stats }: Props) {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-teal"
             >
-              Inspect on explorer <ExternalLink size={11} />
+              Trace on explorer <ExternalLink size={11} />
             </a>
             <a
               href="https://docs.genlayer.com"

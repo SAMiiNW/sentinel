@@ -72,7 +72,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry: () 
           rel="noopener noreferrer"
           className="focus-ring flex items-center gap-2 rounded-2xl border border-white/12 px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-haze hover:text-mist"
         >
-          Explorer <ExternalLink size={13} />
+          Trace on explorer <ExternalLink size={13} />
         </a>
       </div>
     </div>

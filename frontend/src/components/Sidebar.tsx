@@ -240,7 +240,7 @@ function SidebarBody({
           rel="noopener noreferrer"
           className="focus-ring flex items-center justify-center gap-2 rounded-xl border border-white/10 py-2.5 font-mono text-[11px] uppercase tracking-wider text-teal transition-colors hover:border-teal/40 hover:bg-teal/5"
         >
-          <Droplets size={13} /> Top up test GEN
+          <Droplets size={13} /> Top up gas
         </a>
       </div>
     </div>

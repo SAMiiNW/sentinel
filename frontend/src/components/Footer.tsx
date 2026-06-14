@@ -30,7 +30,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-teal"
             >
-              Contract {shortAddr(CONTRACT_ADDRESS)}
+              Gate contract {shortAddr(CONTRACT_ADDRESS)}
             </a>
             <CopyButton value={CONTRACT_ADDRESS} label="Copy contract" />
             <a
@@ -47,7 +47,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-teal"
             >
-              Faucet <ExternalLink size={11} />
+              Top up gas <ExternalLink size={11} />
             </a>
             <a
               href="https://docs.genlayer.com"
@@ -61,8 +61,7 @@ export function Footer() {
         </div>
 
         <p className="mt-10 border-t border-white/8 pt-6 text-center font-mono text-xs text-faint">
-          Built on GenLayer Bradbury Testnet. Rulings are AI judgments under validator consensus,
-          provided as is, not professional moderation or legal advice.
+          Sentinel runs on the GenLayer Bradbury testnet. A ruling is the agreement of independent validators, not a human moderation team or legal counsel, and the gate keeps no funds. You sign every action with your own wallet.
         </p>
       </div>
     </footer>
