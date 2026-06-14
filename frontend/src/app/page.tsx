@@ -76,15 +76,6 @@ function Console() {
         />
 
         <TraceStream entries={data.chronicle} />
-
-        {/* thin disclaimer ribbon pinned at the bottom of the field */}
-        <footer className="border-t border-white/8 px-5 py-6 sm:px-8 lg:px-10">
-          <p className="mx-auto max-w-3xl text-center font-mono text-[11px] leading-relaxed text-faint">
-            Sentinel runs on the GenLayer Bradbury testnet, where each ruling is an AI judgment
-            confirmed by validator consensus. The desk holds no deposits and takes no custody, and
-            its calls are not professional moderation or legal advice.
-          </p>
-        </footer>
       </main>
 
       <SubmitModal

@@ -11,8 +11,10 @@ import {
   LogOut,
   ExternalLink,
   Power,
+  Droplets,
+  BookOpen,
 } from 'lucide-react';
-import { CONTRACT_ADDRESS, EXPLORER } from '@/lib/contract';
+import { CONTRACT_ADDRESS, EXPLORER, FAUCET } from '@/lib/contract';
 import { shortAddr } from '@/lib/format';
 import { CopyButton } from './CopyButton';
 import type { WalletState } from '@/hooks/useWallet';
@@ -57,6 +59,69 @@ export function CommandRail({ wallet, onPublish, active }: Props) {
               Desk
             </span>
           </span>
+        </div>
+
+        {/* WALLET DOCK pinned at the TOP, always visible (popover opens downward) */}
+        <div className="relative mt-6 w-full">
+          {!connected ? (
+            <button
+              type="button"
+              onClick={wallet.connect}
+              disabled={wallet.connecting}
+              className="focus-ring flex w-full items-center justify-center gap-2 border border-teal bg-gradient-to-b from-teal/25 to-violet/15 py-3 font-mono text-[10px] font-700 uppercase tracking-[0.18em] text-teal shadow-glow transition-colors hover:from-teal/35 hover:to-violet/25 disabled:opacity-60 lg:justify-start lg:px-3"
+              aria-label="Connect wallet"
+            >
+              <Power size={15} className="text-teal" />
+              <span className="hidden lg:inline">{wallet.connecting ? 'Connecting' : 'Connect wallet'}</span>
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setMenu((v) => !v)}
+                className="focus-ring flex w-full items-center justify-center gap-2 border border-teal/40 bg-teal/5 py-3 font-mono text-[10px] text-mist lg:justify-start lg:px-3"
+              >
+                <span
+                  className={`h-2 w-2 shrink-0 rounded-full ${
+                    wallet.chainOk ? 'bg-teal shadow-glow' : 'bg-flagged'
+                  }`}
+                />
+                <span className="hidden truncate lg:inline">{shortAddr(wallet.address as string)}</span>
+              </button>
+              {menu && (
+                <div className="plate bracket absolute left-0 top-14 z-50 w-[244px] p-4">
+                  <p className="uplabel text-faint">Linked wallet</p>
+                  <div className="mt-2 flex items-center justify-between gap-2 break-all font-mono text-xs text-haze">
+                    <span>{wallet.address}</span>
+                    <CopyButton value={wallet.address as string} label="Copy address" />
+                  </div>
+                  {!wallet.chainOk && (
+                    <p className="mt-3 border border-flagged/40 bg-flagged/10 p-2 font-mono text-[11px] text-flagged">
+                      Wrong network. Switch to Bradbury (4221).
+                    </p>
+                  )}
+                  <a
+                    href={`${EXPLORER}/address/${CONTRACT_ADDRESS}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring mt-3 flex items-center gap-1 font-mono text-xs text-teal hover:underline"
+                  >
+                    View contract <ExternalLink size={12} />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      wallet.disconnect();
+                      setMenu(false);
+                    }}
+                    className="focus-ring mt-4 flex w-full items-center justify-center gap-2 border border-white/10 py-2 font-mono text-xs uppercase tracking-wider text-haze transition-colors hover:border-blocked hover:text-blocked"
+                  >
+                    <LogOut size={14} /> Disconnect
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
 
         {/* WIRED NODE SPINE */}
@@ -116,67 +181,32 @@ export function CommandRail({ wallet, onPublish, active }: Props) {
         </button>
       </div>
 
-      {/* WALLET DOCK (bottom of rail, popover opens upward) */}
-      <div className="relative w-full">
-        {!connected ? (
-          <button
-            type="button"
-            onClick={wallet.connect}
-            disabled={wallet.connecting}
-            className="focus-ring flex w-full items-center justify-center gap-2 border border-white/12 bg-white/5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-haze transition-colors hover:border-teal/50 hover:text-teal disabled:opacity-60 lg:justify-start lg:px-3"
-            aria-label="Link wallet"
-          >
-            <Power size={15} className="text-teal" />
-            <span className="hidden lg:inline">{wallet.connecting ? 'Linking' : 'Link wallet'}</span>
-          </button>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={() => setMenu((v) => !v)}
-              className="focus-ring flex w-full items-center justify-center gap-2 border border-white/12 bg-white/5 py-3 font-mono text-[10px] text-mist lg:justify-start lg:px-3"
-            >
-              <span
-                className={`h-2 w-2 shrink-0 rounded-full ${
-                  wallet.chainOk ? 'bg-teal shadow-glow' : 'bg-flagged'
-                }`}
-              />
-              <span className="hidden truncate lg:inline">{shortAddr(wallet.address as string)}</span>
-            </button>
-            {menu && (
-              <div className="plate bracket absolute bottom-14 left-0 z-50 w-[244px] p-4">
-                <p className="uplabel text-faint">Linked wallet</p>
-                <div className="mt-2 flex items-center justify-between gap-2 break-all font-mono text-xs text-haze">
-                  <span>{wallet.address}</span>
-                  <CopyButton value={wallet.address as string} label="Copy address" />
-                </div>
-                {!wallet.chainOk && (
-                  <p className="mt-3 border border-flagged/40 bg-flagged/10 p-2 font-mono text-[11px] text-flagged">
-                    Wrong network. Switch to Bradbury (4221).
-                  </p>
-                )}
-                <a
-                  href={`${EXPLORER}/address/${CONTRACT_ADDRESS}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="focus-ring mt-3 flex items-center gap-1 font-mono text-xs text-teal hover:underline"
-                >
-                  View contract <ExternalLink size={12} />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    wallet.disconnect();
-                    setMenu(false);
-                  }}
-                  className="focus-ring mt-4 flex w-full items-center justify-center gap-2 border border-white/10 py-2 font-mono text-xs uppercase tracking-wider text-haze transition-colors hover:border-blocked hover:text-blocked"
-                >
-                  <LogOut size={14} /> Disconnect
-                </button>
-              </div>
-            )}
-          </>
-        )}
+      {/* UTILITY LINKS spread along the rail foot, not bunched in content */}
+      <div className="hidden w-full flex-col gap-2 lg:flex">
+        <a
+          href={FAUCET}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint transition-colors hover:text-teal"
+        >
+          <Droplets size={12} className="text-teal" /> Top up gas
+        </a>
+        <a
+          href={EXPLORER}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint transition-colors hover:text-teal"
+        >
+          <ExternalLink size={11} /> Explorer
+        </a>
+        <a
+          href="https://docs.genlayer.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-faint transition-colors hover:text-teal"
+        >
+          <BookOpen size={11} /> Docs
+        </a>
       </div>
     </aside>
   );

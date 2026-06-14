@@ -177,38 +177,14 @@ export function OverviewField({ onOpen, onCheck, checksDisabled, stats }: Props)
           <CopyButton value={CONTRACT_ADDRESS} label="Copy contract address" />
         </div>
 
-        <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] text-haze">
+        <div className="mt-3 flex items-center gap-x-5 font-mono text-[11px] text-haze">
           <a
             href={`${EXPLORER}/tx/${DEPLOY_TX}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 hover:text-teal"
           >
-            Deck deploy {shortHash(DEPLOY_TX)} <ExternalLink size={11} />
-          </a>
-          <a
-            href={FAUCET}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-teal hover:text-teal-soft"
-          >
-            <Droplets size={12} /> Top up gas
-          </a>
-          <a
-            href={EXPLORER}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-teal"
-          >
-            Trace on explorer <ExternalLink size={11} />
-          </a>
-          <a
-            href="https://docs.genlayer.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-teal"
-          >
-            Desk docs <ExternalLink size={11} />
+            Sealed by {shortHash(DEPLOY_TX)} <ExternalLink size={11} />
           </a>
         </div>
 
