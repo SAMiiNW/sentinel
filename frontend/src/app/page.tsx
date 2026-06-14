@@ -1,14 +1,12 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { LayoutGrid, ShieldCheck } from 'lucide-react';
-import { Header } from '@/components/Header';
-import { Hero } from '@/components/Hero';
-import { HowItWorks } from '@/components/HowItWorks';
+import { LayoutList } from 'lucide-react';
+import { ControlBar } from '@/components/ControlBar';
+import { BentoHero } from '@/components/BentoHero';
 import { Chronicle } from '@/components/Chronicle';
-import { Footer } from '@/components/Footer';
-import { PolicyCard } from '@/components/PolicyCard';
+import { MeshCanvas } from '@/components/MeshCanvas';
+import { PolicyTile } from '@/components/PolicyTile';
 import { Skeleton, EmptyState, ErrorState } from '@/components/States';
 import { SubmitModal, type ModalMode } from '@/components/SubmitModal';
 import { ToastProvider } from '@/components/Toast';
@@ -41,12 +39,20 @@ function Dashboard() {
     setModalOpen(true);
   };
 
+  const sorted = useMemo(
+    () => [...data.policies].sort((a, b) => b.index - a.index),
+    [data.policies],
+  );
+
+  const openFirstCheck = () => {
+    if (sorted.length > 0) openCheck(sorted[0]);
+  };
+
   const filtered = useMemo(() => {
-    const list = [...data.policies].sort((a, b) => b.index - a.index);
-    if (filter === 'ALL') return list;
-    if (filter === 'PENDING') return list.filter((p) => p.checks === 0);
-    return list.filter((p) => p.checks > 0 && p.last_ruling === filter);
-  }, [data.policies, filter]);
+    if (filter === 'ALL') return sorted;
+    if (filter === 'PENDING') return sorted.filter((p) => p.checks === 0);
+    return sorted.filter((p) => p.checks > 0 && p.last_ruling === filter);
+  }, [sorted, filter]);
 
   const ruledCounts = useMemo(() => {
     const ruled = data.policies.filter((p) => p.checks > 0);
@@ -67,43 +73,53 @@ function Dashboard() {
   ];
 
   return (
-    <>
-      <Header wallet={wallet} onOpen={openPublish} />
-      <main>
-        <Hero onOpen={openPublish} stats={data.derived} />
-        <HowItWorks />
+    <div className="relative min-h-screen">
+      {/* living aurora mesh, fixed behind everything */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <MeshCanvas />
+        <div className="absolute inset-0 bg-gradient-to-b from-abyss-900/30 via-transparent to-abyss-900/70" />
+      </div>
 
-        {/* REGISTRY */}
-        <section id="registry" className="relative py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <span className="uplabel flex items-center gap-2 font-mono text-teal">
-                  <LayoutGrid size={14} /> The policy registry
-                </span>
-                <h2 className="mt-3 font-display text-4xl font-700 leading-tight tracking-tight text-mist sm:text-5xl">
-                  Live policies and rulings
-                </h2>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {filters.map((f) => (
-                  <button
-                    key={f.key}
-                    type="button"
-                    onClick={() => setFilter(f.key)}
-                    className={`focus-ring rounded-full border px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors ${
-                      filter === f.key
-                        ? 'border-teal bg-teal/15 text-teal'
-                        : 'border-white/10 text-haze hover:border-teal/40'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
+      <ControlBar wallet={wallet} onOpen={openPublish} />
+
+      <main className="min-h-screen">
+        <BentoHero
+          onOpen={openPublish}
+          onCheck={openFirstCheck}
+          checksDisabled={sorted.length === 0}
+          stats={data.derived}
+        />
+
+        {/* REGISTRY: title, then a segmented control on its own line, then a
+            2-column masonry of policy tiles. Distinct from the sibling
+            kicker + pills-on-the-right + 3-col grid. */}
+        <section id="registry" className="relative px-5 py-14 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex items-center gap-2">
+              <LayoutList size={16} className="text-teal" />
+              <span className="uplabel font-mono text-teal">Policy registry</span>
+            </div>
+            <h2 className="mt-2 font-display text-2xl font-700 tracking-tight text-mist sm:text-3xl">
+              Live policies and rulings
+            </h2>
+
+            {/* segmented filter control on its own line, full width */}
+            <div className="mt-5 flex w-full flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/5 p-1">
+              {filters.map((f) => (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setFilter(f.key)}
+                  className={`focus-ring flex-1 rounded-xl px-3 py-2 text-center font-mono text-[11px] uppercase tracking-wider transition-colors ${
+                    filter === f.key ? 'bg-teal/15 text-teal' : 'text-haze hover:text-mist'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
             </div>
 
-            <div className="mt-12">
+            <div className="mt-7">
               {data.loading ? (
                 <Skeleton />
               ) : data.error ? (
@@ -111,44 +127,30 @@ function Dashboard() {
               ) : data.policies.length === 0 ? (
                 <EmptyState onOpen={openPublish} />
               ) : filtered.length === 0 ? (
-                <div className="glass rounded-4xl px-6 py-14 text-center font-body text-haze">
+                <div className="glass rounded-3xl px-6 py-14 text-center font-body text-haze">
                   No policies match this filter yet.
                 </div>
               ) : (
-                <motion.div layout className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                <div className="columns-1 gap-5 md:columns-2">
                   {filtered.map((p) => (
-                    <PolicyCard key={p.id} policy={p} onCheck={openCheck} />
+                    <PolicyTile key={p.id} policy={p} onCheck={openCheck} />
                   ))}
-                </motion.div>
+                </div>
               )}
-            </div>
-
-            {/* CTA */}
-            <div className="glass mt-16 flex flex-col items-center justify-between gap-6 rounded-4xl p-8 sm:flex-row">
-              <div>
-                <h3 className="flex items-center gap-2 font-display text-2xl font-700 tracking-tight text-mist">
-                  <ShieldCheck size={22} className="text-teal" /> Have rules to enforce?
-                </h3>
-                <p className="mt-2 max-w-xl font-body text-haze">
-                  Publish a policy in plain language. When content arrives, the moderator rules under
-                  consensus and the chain keeps the record.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={openPublish}
-                className="focus-ring flex shrink-0 items-center gap-2 rounded-2xl bg-gradient-to-r from-teal to-violet px-7 py-4 font-mono text-sm font-700 uppercase tracking-wider text-abyss-900 shadow-glow transition-transform hover:-translate-y-0.5"
-              >
-                <ShieldCheck size={18} /> Publish a policy
-              </button>
             </div>
           </div>
         </section>
 
         <Chronicle entries={data.chronicle} />
-      </main>
 
-      <Footer />
+        {/* compact single-row footer strip, not a 3-column grid */}
+        <footer className="border-t border-white/8 px-5 py-6 sm:px-8">
+          <p className="mx-auto max-w-6xl text-center font-mono text-[11px] text-faint">
+            Built on GenLayer Bradbury Testnet. Rulings are AI judgments under validator consensus,
+            provided as is, not professional moderation or legal advice.
+          </p>
+        </footer>
+      </main>
 
       <SubmitModal
         open={modalOpen}
@@ -161,7 +163,7 @@ function Dashboard() {
         txApi={txApi}
         setTxInFlight={data.setTxInFlight}
       />
-    </>
+    </div>
   );
 }
 
