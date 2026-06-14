@@ -1,0 +1,7 @@
+{
+  "network": "testnet-bradbury",
+  "contract_address": "0x216c90ae3FB104640563f1391B2BbF44b7B9258B",
+  "deploy_tx": "0x645d51c1175541fea0115d673c3a56a61a45fa5b0c740f19fd758b5546a2ffb4",
+  "signer": "0xD87979d71C80d253CfB133CE7C6E4b818FFa5097",
+  "explorer": "https://explorer-bradbury.genlayer.com/address/0x216c90ae3FB104640563f1391B2BbF44b7B9258B"
+}
